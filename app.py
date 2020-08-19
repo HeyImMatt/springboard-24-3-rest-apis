@@ -1,8 +1,8 @@
 """Flask Cupcakes Exercise"""
 
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db
+from models import db, connect_db, Cupcake
 
 app = Flask(__name__)
 
@@ -15,3 +15,23 @@ debug = DebugToolbarExtension(app)
 
 connect_db(app)
 db.create_all()
+
+def serialize_cupcake(cupcake):
+    """Serialize a cupcake SQLAlchemy obj to dictionary"""
+
+    return {
+      "id": cupcake.id,
+      "flavor": cupcake.flavor,
+      "size": cupcake.size,
+      "rating": cupcake.rating,
+      "image": cupcake.image
+    }
+
+@app.route('/api/cupcakes', methods=['GET'])
+def get_all_cupcakes():
+    """Get cupcakes route"""
+
+    cupcakes = Cupcake.query.all()
+    serialized = [serialize_cupcake(c) for c in cupcakes]
+
+    return jsonify(cupcakes=serialized)
