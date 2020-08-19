@@ -35,3 +35,12 @@ def get_all_cupcakes():
     serialized = [serialize_cupcake(c) for c in cupcakes]
 
     return jsonify(cupcakes=serialized)
+
+@app.route('/api/cupcakes/<int:id>', methods=['GET'])
+def get_single_cupcake(id):
+    """Get cupcakes route"""
+
+    cupcake = Cupcake.query.get_or_404(id)
+    serialized = serialize_cupcake(cupcake)
+
+    return jsonify(cupcake=serialized)
