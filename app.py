@@ -79,7 +79,11 @@ def patch_cupcake(id):
     cupcake.rating = rating if rating else cupcake.rating
     cupcake.image = image if image else cupcake.image
 
-    db.session.add(cupcake)
+    # I think the loop works, but I get a rollback when committing
+    # for k,v in request.json.items():
+    #     if v and cupcake.__dict__[k]:
+    #         cupcake.__dict__[k] = v 
+
     db.session.commit()
 
     serialized = serialize_cupcake(cupcake)
