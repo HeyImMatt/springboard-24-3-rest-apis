@@ -16,6 +16,26 @@
         <ul id="cupcakes-list" class="list-group">
 
         </ul>
+        <form class="mt-4">
+          <h4>Add a new cupcake!</h4>
+          <div class="form-group">
+            <label for="flavor">Flavor:</label>
+            <input type="text" class="form-control" id="flavor" required>
+          </div>
+          <div class="form-group">
+            <label for="size">Size:</label>
+            <input type="text" class="form-control" id="size" required>
+          </div>
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <input type="number" min="0" max="10" class="form-control" id="rating" required>
+          </div>
+          <div class="form-group">
+            <label for="image">Image URL:</label>
+            <input type="text" class="form-control" id="image">
+          </div>
+          <button id="createBtn" class="btn btn-info" type='submit'>Add Cupcake</button>
+        </form>
       </div>
     </div>
   </div>
