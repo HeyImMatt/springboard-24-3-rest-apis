@@ -27,6 +27,10 @@ def serialize_cupcake(cupcake):
       "image": cupcake.image
     }
 
+@app.route('/')
+def home_route():
+    return render_template('index.html')
+
 @app.route('/api/cupcakes', methods=['GET'])
 def get_all_cupcakes():
     """Get cupcakes route"""
