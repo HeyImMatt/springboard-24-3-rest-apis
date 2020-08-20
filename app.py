@@ -62,3 +62,26 @@ def post_cupcake():
     serialized = serialize_cupcake(newCupcake)
 
     return (jsonify(cupcake=serialized), 201)
+
+@app.route('/api/cupcakes/<int:id>', methods=['PATCH'])
+def patch_cupcake(id):
+    """Patch cupcake route"""
+
+    cupcake = Cupcake.query.get_or_404(id)
+
+    flavor = request.json['flavor']
+    size = request.json['size']
+    rating = request.json['rating']
+    image = request.json['image']
+
+    cupcake.flavor = flavor if flavor else cupcake.flavor
+    cupcake.size = size if size else cupcake.size
+    cupcake.rating = rating if rating else cupcake.rating
+    cupcake.image = image if image else cupcake.image
+
+    db.session.add(cupcake)
+    db.session.commit()
+
+    serialized = serialize_cupcake(cupcake)
+
+    return (jsonify(cupcake=serialized), 200)
