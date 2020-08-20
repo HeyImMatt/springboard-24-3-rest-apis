@@ -69,20 +69,20 @@ def patch_cupcake(id):
 
     cupcake = Cupcake.query.get_or_404(id)
 
-    # flavor = request.json['flavor']
-    # size = request.json['size']
-    # rating = request.json['rating']
-    # image = request.json['image']
+    flavor = request.json['flavor']
+    size = request.json['size']
+    rating = request.json['rating']
+    image = request.json['image']
 
-    # cupcake.flavor = flavor if flavor else cupcake.flavor
-    # cupcake.size = size if size else cupcake.size
-    # cupcake.rating = rating if rating else cupcake.rating
-    # cupcake.image = image if image else cupcake.image
+    cupcake.flavor = flavor if flavor else cupcake.flavor
+    cupcake.size = size if size else cupcake.size
+    cupcake.rating = rating if rating else cupcake.rating
+    cupcake.image = image if image else cupcake.image
 
     # I think the loop works, but I get a rollback when committing
-    for k,v in request.json.items():
-        if v and cupcake.__dict__[k]:
-            cupcake.__dict__[k] = v 
+    # for k,v in request.json.items():
+    #     if v and cupcake.__dict__[k]:
+    #         cupcake.__dict__[k] = v 
 
     db.session.commit()
 
@@ -98,5 +98,5 @@ def delete_cupcake(id):
 
     db.session.delete(cupcake)
     db.session.commit()
-    
+
     return (jsonify(message="deleted"), 200)
